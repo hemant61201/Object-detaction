@@ -1,9 +1,33 @@
-import React, { useDebugValue } from 'react'
-import { NavLink } from 'react-router-dom';
+import React, { useDebugValue, useState } from 'react'
+import { NavLink, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Assets/navbar.css';
+// import './display';
 
 const Navbar = () => {
+  // const history = useHistory();
+  // const [input,setInput] = useState('');
+  // const handleSearch = async(e) => {
+  //     e.preventDefault();
+
+  //     const res = await fetch('/viewproducts',{
+  //       method:"POST",
+  //       headers:{
+  //           "Content-Type" : "application/json"
+  //       },
+  //       body:JSON.stringify({
+  //           pname : input
+  //       })
+  //   }); 
+  //   // console.log(res);
+  //   // const {pname} =  res.data;
+  //   const data = await res.json();
+  //   console.log(data.products);
+  //   // history.push("/display");
+  //   // console.log("This is data" + res.data );
+  // };
+
+
   return(
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
@@ -23,14 +47,20 @@ const Navbar = () => {
           <a className="nav-link active" href="/signup">SignUp</a>
         </li>
         <li className="nav-item">
+          <a className="nav-link active" href="/signin">SignIn</a>
+        </li>
+        {/* <li className="nav-item">
           <a className="nav-link active" href="/contact">Feedback</a>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <a className="nav-link active" href="/history">History</a>
-        </li>
-        <li className="nav-item">
+        </li> */}
+        {/* <li className="nav-item">
           <a className="nav-link active" href="/upload">Upload</a>
-        </li>
+        </li> */}
+        {/* <li className="nav-item">
+          <a className="nav-link active" href="/aproduct">Add</a>
+        </li> */}
         
          
 {/*     <li className="nav-item">
@@ -39,10 +69,15 @@ const Navbar = () => {
         
       </ul>
 
-      <form form class="d-flex">
-        <input class="form-control me-2 " type="search" placeholder="Search by Name" aria-label="Search"/>
-        <button className="btn btn-outline-success" type="submit">Search</button>
-      </form>    </div>
+      {/* <form form class="d-flex">
+        <input class="form-control me-2 " type="search" name='input' id='input'
+        //value={input} onChange={(e) => setInput(e.target.value)}
+        placeholder="Search by Name" aria-label="Search"/>
+        <button className="btn btn-outline-success" 
+        //onClick={handleSearch} 
+        type="submit">Search</button>
+      </form>     */}
+      </div>
   </div>
 </nav>
     </div>

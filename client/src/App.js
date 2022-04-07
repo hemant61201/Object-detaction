@@ -5,92 +5,43 @@ import Navbar from './Components/Navbar'
 import Home from './Components/Home'
 import Signin from './Components/Signin'
 import Signup from './Components/Signup'
-// import AdminPanel from './Components/AdminPanel'
-// import AddCity from './Components/AddCity'
-// import AddPlace from './Components/AddPlace'
-// import AddFood from './Components/AddFood'
-// import UserHome from './Components/UserHome'
-// import EditPlace from './Components/EditPlace'
-// import EditCity from './Components/EditCity'
-// import EditFood from './Components/EditFood'
-// import ManageCities from './Components/ManageCities'
-// import ManagePlaces from './Components/ManagePlaces'
-// import ManageFood from './Components/ManageFood'
-// import CityDetails from './Components/CityDetails'
 import Footer from './Components/Footer'
 import Contact from './Components/Contact'
 import Cookie from './Components/Cookie'
 import Terms from './Components/Terms'
 import History from './Components/History'
 import Upload from './Components/Upload'
-
+import Aproduct from './Components/Aproduct'
+import NavbarUser from './Components/NavbarUser'
+import Userhome from './Components/Userhome'
+import Adminhome from './Components/Adminhome'
+import NavbarAdmin from './Components/NavAdmin'
+import Display from './Components/Display'
 
 const App = () => {
   return(
     <div>
-      <Navbar />
+
+      {/* <Navbar /> */}
+      {/* <Aproduct/> */}
       {/* <Home/> */}
       <Route exact path="/">
+      <Navbar />
         <Home />
       </Route>
 
       <Route path="/signup">
+      <Navbar />
         <Signup />
       </Route>
 
       <Route path="/signin">
+      <Navbar />
         <Signin />
       </Route>
 
-      {/* <Route exact path="/userhome">
-        <UserHome />
-      </Route> */}  
-
-      {/* <Route path="/about">
-        <AdminPanel />
-      </Route> */}
-
-      {/* <Route path="/addcity">
-        <AddCity />
-      </Route> */}
-
-      {/* <Route path="/addplace">
-        <AddPlace />
-      </Route> */}
-
-      {/* <Route path="/addfood">
-        <AddFood />
-      </Route> */}
-
-      {/* <Route exact path="/editcity">
-        <EditCity />
-      </Route> */}
-
-      {/* <Route exact path="/editplace">
-        <EditPlace />
-      </Route> */}
-
-      {/* <Route exact path="/editfood">
-        <EditFood />
-      </Route>
- */}
-      {/* <Route exact path="/managecities">
-        <ManageCities />
-      </Route>  */}
-
-      {/* <Route exact path="/manageplaces">
-        <ManagePlaces />
-      </Route> */}
-
-      {/* <Route exact path="/managefood">
-        <ManageFood />
-      </Route> */}
-{/*       
-      <Route exact path="/citydetails">
-        <CityDetails />
-      </Route> */}
-
       <Route exact path="/contact">
+      <NavbarUser />
         <Contact />
       </Route>
 
@@ -103,15 +54,36 @@ const App = () => {
       </Route>
 
       <Route exact path="/history">
+      <NavbarUser/>
         <History />
       </Route>
 
       <Route exact path="/upload">
+      <NavbarUser/>
         <Upload />
       </Route>
 
-      {/* <Footer/> */}
+      <Route exact path="/aproduct">
+      <NavbarAdmin/>
+        <Aproduct/>
+      </Route> 
+
+      <Route exact path="/userhome">
+      <NavbarUser/>
+        <Userhome/>
+      </Route>
+
+      <Route exact path="/adminhome">
+      <NavbarAdmin/>
+        <Adminhome/>
+      </Route>
+
+       <Route exact path="/display">
+       <NavbarUser/>
+         <Display/>
+       </Route>
       
+      {/* <Footer/> */}
     </div>
   )
 }

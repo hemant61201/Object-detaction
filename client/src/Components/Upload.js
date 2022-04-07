@@ -3,40 +3,75 @@ import { useHistory } from "react-router-dom";
 
 function Upload() {
 
-  const history = useHistory();
+  // const handleInputImg = async() =>{
 
-  const callUploadPage = async() =>{
+  // }
 
-    try {
-      
-      const res = fetch('/upload', {
-      method: "GET",
-      headers: {
-        Accept:"application/json",
-        "Content-Type": "application/json"
-      },
-      credentials: "include"
-    });
+ // const history = useHistory();
+//
+ // const callUploadPage = async() =>{
+//
+ //   try {
+ //     
+ //     const res = fetch('/upload', {
+ //     method: "GET",
+ //     headers: {
+ //       Accept:"application/json",
+ //       "Content-Type": "application/json"
+ //     },
+ //     credentials: "include"
+ //   });
+//
+ //   const data = await res.json();
+ //   console.log(data);
+//
+ //   if(!res.status === 200){
+ //     const error = new Error(res.error);
+ //     throw error;
+ //   }
+//
+ //   } catch (err) {
+ //     console.log(err);
+ //     history.push('/signin');
+ //   }
+ // }
+//
+ // useEffect(()=>{
+//
+ //   callUploadPage();
+//
+ // },[]);
+//
 
-    const data = await res.json();
-    console.log(data);
+  // const history = useHistory();
+  // const callUploadPage = async() =>{
+  //     try {
+  //       const res = await fetch('/upload',{
+  //         method:"GET",
+  //         headers: {
+  //           Accept: "application/json",
+  //           "Content-Type": "application/json"
+  //         },
+  //         credentials:"include"
+  //       });
 
-    if(!res.status === 200){
-      const error = new Error(res.error);
-      throw error;
-    }
+  //       const data = await res.json();
+  //       console.log(data);
+        
+  //       if(!res.status === 200){
+  //         const error = new Error(res.error);
+  //         throw error; 
+  //       }
+  //     } catch (err) {
+  //       console.log(err);
+  //       history.push('/signin');
+  //     }
+  // }
 
-    } catch (err) {
-      console.log(err);
-      history.push('/signin');
-    }
-  }
+  //   useEffect(() =>{
+  //     callUploadPage();
+  //   },[]);
 
-  useEffect(()=>{
-
-    callUploadPage();
-
-  },[]);
 
   return (
 
@@ -49,10 +84,14 @@ function Upload() {
           
           <form action="" method="post">
           <label for="formFileLg" class="form-label"></label>
-          <input class="form-control form-control-lg" id="formFileLg" type="file"/>
+          <input class="form-control form-control-lg" id="formFileLg" name = "formFile"
+          // value = {user.formFile} onChange={handleInputImg}
+          type="file"/>
           <br /> <br />
           <div className="col-md-12 text-center">
-          <button class="btn btn-outline-success" type="submit" value="Submit">Upload</button>
+          <button class="btn btn-outline-success" type="submit" 
+          name='upload' id='upload'
+          value="Submit">Upload</button>
           </div>
           </form>
           </div>

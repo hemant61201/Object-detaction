@@ -16,6 +16,9 @@ app.get('/',(req,res)=>{
     res.send(`helloo`);
 })
 
+// app.get('/Aproduct',(req,res)=>{
+//     res.send('hello this is add product');
+// })
 // app.get('/admin',(req,res)=>{
 //     res.send(`Admin Page`);
 // })

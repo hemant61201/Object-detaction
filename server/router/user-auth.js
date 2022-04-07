@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
 require('../db/connectdb');
 var { User } = require("../model/schema");
-const authenticate = require('../middleware/authenticate');
-// var { City } = require("../model/schema");
-// var { Place } = require("../model/schema");
-// var { Food } = require("../model/schema");
+const authenticate = require('../middleware/authenticate'); 
+var { Product } = require("../model/schema");
 
 router.post('/signup', async (req, res) => {
     const { name, email, uname, password, cpassword, phone } = req.body;
@@ -33,82 +33,136 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-// router.post('/signin', async (req, res) => {
-
-//     const { email, password } = req.body;
-
-//     if (!email || !password) {
-//         return res.status(400).json({ error: "All fields are required" });
-//     }
-//     // else if (email == "admin@gmail.com" && password == "admin") {
-//     //     return res.status(500).json({ error: "Admin login" });
-//     // }
-
-//     try {
-//         const user = await User.findOne({ email: email });
-
-//         const valid = await bcrypt.compare(password, user.password);
-
-//         if (user && valid) {
-//             return res.status(422).json({ error: "Signin Success" });
-//         }
-//         else if (user) {
-//             return res.status(400).json({ error: "Incorrect Password" });
-//         }
-//         else if (valid) {
-//             return res.status(400).json({ error: "User Not Found" });
-//         }
-//     } catch (err) {
-//         console.log(err);
-//     }
-// });
-
-
 router.post('/signin', async (req, res) => {
 
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ error: "All fields are required" });
+    }
+    //admin login
+    else if (email == "admin@gmail.com" && password == "admin") {
+        console.log("Admin sign in successful");
+        return res.status(201).json({ message: "Admin login successful" });
+    }
+
     try {
-        let token;
-        const { email, password } = req.body;
+        // const jwtoken;
+        const user = await User.findOne({ email: email });
 
-        if (!email || !password) {
-            return res.status(400).json({ error: "All fields are required" });
+        const valid = await bcrypt.compare(password, user.password);
+        
+        // const token = await user.generateAuthToken();
+        // console.log(token);
+
+        // res.cookie('jwtoken',token,{
+        //     expires:new Date(Date.now + 25892000000),
+        //     httpOnly:true
+        // })
+
+        if (user && valid) {
+            return res.status(422).json({ error: "Signin Success" });
         }
-
-        if (password.length < 8) {
-            return res.status(400).json({ error: "invalid credentials" });
+        else if (user) {
+            return res.status(400).json({ error: "Incorrect Password" });
         }
-        console.log(password.length);
-        const userLogin = await User.findOne({ email: email });
-
-
-        if (userLogin) {
-            const isMatch = await bcrypt.compare(password, userLogin.password);
-
-            if (!isMatch) {
-                res.status(400).json({ error: "invalid credential" });
-            } else {
-                token = await userLogin.generateAuthToken();
-                console.log(token);
-
-                res.cookie("jwtoken", token, {
-                    expires: new Date(Date.now() + 25892000000),
-                    httpOnly: true
-                });
-                res.json({ message: "user sign in successfully" })
-            }
-        } else {
-            res.status(400).json({ error: "Invalid Credential" })
+        else if (valid) {
+            return res.status(400).json({ error: "User Not Found" });
         }
     } catch (err) {
         console.log(err);
     }
-
 });
 
-router.get('/upload',authenticate, (req,res)=>{
-    console.log("hello my upload page");
-    res.send(req.rootUser);
-})
+
+router.post('/viewproducts', async (req, res) => {
+
+    //const pname = new Product({ p_name:"dhwanishingala" , p_origin:"2000",p_price:"1000",p_mfgyear:"1990" });
+    //console.log(pname);
+    //        await pname.save(); 
+    //res.status(201).json({ message: "User Registered Successfully!" });
+
+    const pname = req.body.pname  ;
+     console.log("Pname "+ pname);  
+
+     ///regex
+    //  var name="pname";
+    const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } }).limit(5);
+
+     //const products = await Product.findOne({ p_name : pname });
+     console.log(products);
+     res.json({products});
+    
+});
+
+router.post('/addproduct', async(req,res) =>{
+
+    const {p_name, p_origin, p_price, p_mfgyear, p_image } = req.body;
+
+     const pname = new Product({ p_name:p_name, 
+        p_origin:p_origin,
+        p_price:p_price,
+        p_mfgyear:p_mfgyear,
+        p_image:p_image
+    });
+    console.log(pname);
+    await pname.save(); 
+    res.status(201).json({ message: "User Added Product Successfully!" });
+});
+
+// router.get('/upload',authenticate, (req,res)=>{
+//     console.log("hello my upload page");
+//     res.send(req.rootUser);
+// })
+
+// router.post('/navbar', async(req, res) => {
+//     try {   
+//         const { searchInput } = req.body;
+//     } catch (err) {
+//         console.log(err);
+//     }
+// })
+
+// router.post('/signin', async (req, res) => {
+
+//     try {
+//         let token;
+//         const { email, password } = req.body;
+
+//         if (!email || !password) {
+//             return res.status(400).json({ error: "All fields are required" });
+//         }
+
+//         if (password.length < 8) {
+//             return res.status(400).json({ error: "invalid credentials" });
+//         }
+//         console.log(password.length);
+//         const userLogin = await User.findOne({ email: email });
+
+
+//         if (userLogin) {
+//             const isMatch = await bcrypt.compare(password, userLogin.password);
+
+//             if (!isMatch) {
+//                 res.status(400).json({ error: "invalid credential" });
+//             } else {
+//                 token = await userLogin.generateAuthToken();
+//                 console.log(token);
+
+//                 res.cookie("jwtoken", token, {
+//                     expires: new Date(Date.now() + 25892000000),
+//                     httpOnly: true
+//                 });
+//                 res.json({ message: "user sign in successfully" })
+//             }
+//         } else {
+//             res.status(400).json({ error: "Invalid Credential" })
+//         }
+//     } catch (err) {
+//         console.log(err);
+//     }
+
+// });
 
 // router.post('/addcity', async (req, res) => {
 //     const { image, name, details, location,latitude,longitude } = req.body;
@@ -196,11 +250,7 @@ router.get('/upload',authenticate, (req,res)=>{
 //     res.json(placename);
 // });
 
-// router.post('/viewplaces', async (req, res) => {
-//     const cid = req.body.cid
-//     const places = await Place.find({ "CId": cid });
-//     res.json(places);
-// });
+
 
 // router.post('/viewplace', async (req, res) => {
 //     const { id } = req.body;

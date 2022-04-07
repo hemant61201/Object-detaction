@@ -29,15 +29,15 @@ const Signin = () => {
             window.alert("Login Successful");
             console.log("Login Successful");
 
-            history.push("/");
+            history.push("/userHome");
         }
-        //else if(res.status === 500)
-        //{
-        //    window.alert("Admin Login Successfull");
-        //    console.log("Admin Login SuccessFull");
-        //    // history.push("/adminpanel");
-        //    history.push("/");
-        //}
+        else if(res.status === 201)
+        {
+           window.alert("Admin Login Successfull");
+           console.log("Admin Login SuccessFull");
+           // history.push("/adminpanel");
+           history.push("/adminhome");
+        }
     }
   return(
     <div class="signin-form">
