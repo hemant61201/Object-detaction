@@ -45,12 +45,15 @@ const userSchema = new mongoose.Schema({
         type : Number,
         required : "Required"
     },
-    token:{
-        type:String,
-        token:{
-            
+    token:[
+        {
+            token: {
+                type: String,
+                required: true
+            }
         }
-    }
+    
+    ]
 });
 
 
