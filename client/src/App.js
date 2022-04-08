@@ -17,6 +17,7 @@ import Userhome from './Components/Userhome'
 import Adminhome from './Components/Adminhome'
 import NavbarAdmin from './Components/NavAdmin'
 import Display from './Components/Display'
+import Result from './Components/Result'
 
 const App = () => {
   return(
@@ -81,6 +82,11 @@ const App = () => {
        <Route exact path="/display">
        <NavbarUser/>
          <Display/>
+       </Route>
+
+       <Route exact path="/result">
+       <NavbarUser/>
+         <Result/>
        </Route>
       
       {/* <Footer/> */}
