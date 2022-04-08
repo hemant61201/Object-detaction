@@ -1,8 +1,10 @@
+from fileinput import filename
 from wsgiref.util import application_uri
 import cv2
 import numpy as np
 import streamlit as st
 import tensorflow as tf
+import os
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2,preprocess_input as mobilenet_v2_preprocess_input
 
@@ -69,7 +71,9 @@ if uploaded_file is not None:
     if Genrate_pred:
         prediction = model.predict(img_reshape).argmax()
         result = map_dict [prediction]
-        print('this is' + result)
-        with open('result.js', 'w') as out_file:
-            out_file.write('var graph = %s;' % result)
+        print('this is' + result.replace(" ",""))
+        filename = "result.js"
+        x = os.path.join("client\src\Components", filename)
+        with open(x, 'w') as out_file:
+            out_file.write('var graph = %s;' % result.replace(" ",""))
 
