@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
-function Display(props) {
+function Display() {
 
 
   const callDisplayItem = async () => {
@@ -12,7 +12,7 @@ function Display(props) {
           <h1>
             hello this is display page
           </h1>
-          <h2>{props.data}</h2>
+          {/* <h2>{props.data}</h2> */}
         </div>
       </>
     )

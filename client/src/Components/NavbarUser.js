@@ -2,8 +2,8 @@ import React, { useDebugValue, useState } from 'react'
 import { NavLink, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.css';
 import './Assets/navbar.css';
-import './Display';
-import Display from './Display';
+// import './Display';
+// import Display from './Display';
 
 const NavbarUser = () => {
   const history = useHistory();
@@ -34,7 +34,7 @@ const NavbarUser = () => {
   return(   
 
     <div>
-      <Display data={setInput}/>
+      {/* <Display data={setInput}/> */}
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark" id="nav">
   <div className="container-fluid">
     <a href="/userhome" className='navbar-brand'>Bid-To-Buy</a>
@@ -58,7 +58,7 @@ const NavbarUser = () => {
           <a className="nav-link active" href="/history">History</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link active" href="/upload">Upload</a>
+            <NavLink to={{ pathname: "http://localhost:8501" }} target="Upload">Upload</NavLink>
         </li>
         {/* <li className="nav-item">
           <a className="nav-link active" href="/aproduct">Add</a>
