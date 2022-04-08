@@ -1,10 +1,13 @@
+from asyncio import WindowsSelectorEventLoopPolicy
 from fileinput import filename
+import json
 from wsgiref.util import application_uri
 import cv2
 import numpy as np
 import streamlit as st
 import tensorflow as tf
 import os
+import webbrowser
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2,preprocess_input as mobilenet_v2_preprocess_input
 
@@ -72,8 +75,19 @@ if uploaded_file is not None:
         prediction = model.predict(img_reshape).argmax()
         result = map_dict [prediction]
         print('this is' + result.replace(" ",""))
-        filename = "result.js"
-        x = os.path.join("client\src\Components", filename)
-        with open(x, 'w') as out_file:
-            out_file.write('var graph = %s;' % result.replace(" ",""))
+        url = 'http://localhost:3000/result'
+        filename = "temp.json"
+        x = os.path.join("client\src", filename)
+        # with open(x, 'w') as out_file:
+            # out_file.graph.append('var graph = %s' % result.replace(" ",""))
+            # out_file.write(json.dumps(result.replace(" ","")))
+            # x.graph.append(result.replace(" ",""))
+        with open(x, "r") as jsonFile:
+            data = json.load(jsonFile)
+
+        data["result"] = result.replace(" ","")
+
+        with open(x, "w") as jsonFile:
+            json.dump(data, jsonFile)
+        webbrowser.open_new_tab(url)
 
