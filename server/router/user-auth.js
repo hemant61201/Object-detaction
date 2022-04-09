@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 
 require('../db/connectdb');
-var { User } = require("../model/schema");
+var { User, Contact } = require("../model/schema");
 const authenticate = require('../middleware/authenticate'); 
 var { Product } = require("../model/schema");
 
@@ -87,8 +87,22 @@ router.post('/viewproducts', async (req, res) => {
 
      ///regex
     //  var name="pname";
-    const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } }).limit(5);
+    const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } }).limit(6);
 
+     //const products = await Product.findOne({ p_name : pname });
+     console.log(products);
+     res.json({products});
+    
+});
+
+
+router.post('/viewproductsbyid', async (req, res) => {
+
+    const pnum = req.body ;
+     console.log("Pname "+ pnum);  
+
+    // const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } }).limit(5);
+    const products = await Product.findOne({ p_no: pnum });
      //const products = await Product.findOne({ p_name : pname });
      console.log(products);
      res.json({products});
@@ -108,6 +122,21 @@ router.post('/addproduct', async(req,res) =>{
     console.log(pname);
     await pname.save(); 
     res.status(201).json({ message: "User Added Product Successfully!" });
+});
+
+router.post('/contact', async (req, res) => {
+    const { name, email, feedback } = req.body;
+    if (!name || !email || !feedback) {
+        return res.status(422).json({ error: "All fields are required" });
+    }
+    try {
+        
+            const feedbacks = new Contact({ name, email, feedback});
+            await user.save();
+            res.status(201).json({ message: "Feedback Received!" });
+    } catch (err) {
+        console.log(err);
+    }
 });
 
 // router.get('/upload',authenticate, (req,res)=>{

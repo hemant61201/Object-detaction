@@ -57,6 +57,20 @@ const userSchema = new mongoose.Schema({
      ]
 });
 
+const contactSchema = new mongoose.Schema({
+    name: {
+        type : String,
+        required : "Required"
+    },
+    email:{
+        type : String,
+        required : "Required"
+    },
+    feedback:{
+        type : String,
+        required : "Required"
+    },
+});
 
 const productSchemna = new mongoose.Schema({
     p_name:{
@@ -72,6 +86,9 @@ const productSchemna = new mongoose.Schema({
         type: String
     },
     p_image:{
+        type: String
+    },
+    p_no:{
         type: String
     }
 });
@@ -109,12 +126,12 @@ userSchema.plugin(autoincrement.plugin , 'User');
 // const Admin = mongoose.model("Admin", adminSchema);
 const User = mongoose.model("User", userSchema);
 const Product = mongoose.model("Product", productSchemna);
-// const City = mongoose.model("City", citySchema);
+const Contact = mongoose.model("Contact", contactSchema);
 // const Place = mongoose.model("Place", placeSchema);
 // const Food = mongoose.model("Food", foodSchema);
 
 module.exports = { User,
-    Product
+    Product , Contact
     //  Admin , City , Place , Food 
     };
 
