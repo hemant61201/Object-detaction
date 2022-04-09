@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from 'react';
 // import './Assets/contact.css';
 
 // const handleQuery = (event) => {
@@ -26,7 +27,7 @@ const Contact = () => {
     const PostData = async(e) =>{
         e.preventDefault();
 
-        const{name, email } = user;
+        const{name, email, message} = user;
 
         const res = await fetch("/contact",{
             method: "POST",

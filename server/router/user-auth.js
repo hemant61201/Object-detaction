@@ -98,11 +98,11 @@ router.post('/viewproducts', async (req, res) => {
 
 router.post('/viewproductsbyid', async (req, res) => {
 
-    const pnum = req.body ;
-     console.log("Pname "+ pnum);  
+    // const pnum = req.body ;
+    //  console.log("Pname "+ pnum);  
 
     // const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } }).limit(5);
-    const products = await Product.findOne({ p_no: pnum });
+    const products = await Product.find({ p_name: "dhwanishingala" });
      //const products = await Product.findOne({ p_name : pname });
      console.log(products);
      res.json({products});
