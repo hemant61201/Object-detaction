@@ -83,30 +83,32 @@ router.post('/viewproducts', async (req, res) => {
     //res.status(201).json({ message: "User Registered Successfully!" });
 
     const pname = req.body.pname  ;
-     console.log("Pname "+ pname);  
+     console.log("Pname "+ pname);
 
-     ///regex
-    //  var name="pname";
-    const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } }).limit(6);
+    const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } });
 
+    if ( products.length == 0){
+        console.log("not a valid search");
+        res.status(400).json({ message: "No a valis search"});
+    }
      //const products = await Product.findOne({ p_name : pname });
-     console.log(products);
+     else{
+         console.log(products);
      res.json({products});
-    
+     }
 });
 
 
 router.post('/viewproductsbyid', async (req, res) => {
 
-    // const pnum = req.body ;
-    //  console.log("Pname "+ pnum);  
+    const pnum = req.body.p_no ;
+     console.log("Pname "+ pnum);  
 
-    // const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } }).limit(5);
-    const products = await Product.find({ p_name: "dhwanishingala" });
+    const products = await Product.find({ p_no: pnum });
      //const products = await Product.findOne({ p_name : pname });
      console.log(products);
      res.json({products});
-    
+
 });
 
 router.post('/addproduct', async(req,res) =>{

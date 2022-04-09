@@ -1,64 +1,80 @@
-import React, { useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 
 function Display() {
 
-  //const history = useHistory();
-  // const [input,setInput] = useState('');
-//   const [productdetail, setProductdetail] = useState({
-//     p_name:" " , 
-//     p_origin:" " , 
-//     p_price:" " , 
-//     p_mfgyear:" " , 
-//     p_image:" "
-// });
+  const [input, setInput] = useState();
+  const [content, setContent] = useState([]);
 
+  const HandleSearchBar = async (e) => {
+    e.preventDefault();
 
-  // const handleSearch = async(e) => {
-  //     e.preventDefault();
+    const res = await fetch('/viewproducts', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        pname: input
+      })
+    });
 
-  //     const res = await fetch('/viewproductsbyid',{
-  //       method:"POST",
-  //       headers:{
-  //           "Content-Type" : "application/json"
-  //       },
-  //       body:JSON.stringify({
-  //           pname : input
-  //       })
-  //   }); 
-    // console.log(res);
-    // const {pname} =  res.data;
-    //history.push("/display");
-    
-    // const result = await res.json();
+    const data = await res.json();
+    console.log("--------------");
+    console.log(data.products);
 
-    // setProductdetail(result.p_name);
-    // setProductdetail(result.p_origin);
-    // setProductdetail(result.p_price);
-    // setProductdetail(result.p_mfgyear);
-    // setProductdetail(result.p_image);
-    // setProductdetail(result.p_name);
+    setContent(data.products);
+    // data.products.map((p)=>{
+    //   setContent((c)=>[...c,p])
+    // })
 
-    // console.log(result.products);
+    if (res.status === 400 || !data) {
+      window.alert("Invalid search");
+      console.log("Invalid search");
+    }
 
+  }
+  return (
+    <>
+      <div className="container">
+        <form class="d-flex my-5">
+          <input class="form-control me-2 " type="search" name='input' id='input'
+            value={input} onChange={(e) => setInput(e.target.value)}
+            placeholder="Enter the Product name here" aria-label="Search" />
+          <button className="btn btn-outline-success"
+            onClick={HandleSearchBar}
+            type="submit">Search</button>
+        </form>
 
-    return (
-      <>
-        <div className="container">
-          <h1>
-            hello this is display page
-          </h1>
-      <form action="" method="post">
-        <button className="btn btn-outline-success" 
-        //onClick={handleSearch}
-        type="submit">Search</button>
-      </form>
-         
-          {/* <h2>{props.data}</h2> */}
+        <h2 className='text-center'>
+          Related to your Search:
+        </h2>
+        <div>
+          <div class="text-center">
+            <h2 class="card-title">Object details</h2>
+          </div>
+
+          {content.map((i) => (
+            <div class="card mb-3" height={100} width={50} >
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src={i.p_image} class="img-fluid rounded-start" height={200} alt="Product Imahe" />
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title"> {i.p_name} </h5>
+                    <p class="card-text">Product Origin: {i.p_origin}</p>
+                    <p class="card-text">Product Price: {i.p_price}</p>
+                    <p class="card-text">Product Manufacture Year: {i.p_mfgyear}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+
         </div>
-      </>
-    )
+      </div>
+    </>
+  )
+
 }
-
-
 export default Display

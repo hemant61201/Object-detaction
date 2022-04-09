@@ -6,12 +6,15 @@ const Home = () => {
     <>
         <div className="home-page">
           <div className="home-div text-center">
-            <h4 className="pt-5">
+            <h1 className="pt-5 my-5">
               Welcome!!
-            </h4>
+            </h1>
+          
             <h1>
               This is Bid To Buy
             </h1>
+            <br />
+            <h4><h4>Please SignIn/SignUp for all the features. </h4></h4>
           </div>
         </div>
     </>
