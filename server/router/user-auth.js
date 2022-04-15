@@ -85,8 +85,9 @@ router.post('/viewproducts', async (req, res) => {
     const pname = req.body.pname  ;
      console.log("Pname "+ pname);
 
-    const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } });
-
+     const products = await Product.find({p_name: { $regex: '.*' + pname + '.*' } });
+     console.log( typeof products);
+    //  console.log(products);
     if ( products.length == 0){
         console.log("not a valid search");
         res.status(400).json({ message: "No a valis search"});
@@ -102,11 +103,18 @@ router.post('/viewproducts', async (req, res) => {
 router.post('/viewproductsbyid', async (req, res) => {
 
     const pnum = req.body.p_no ;
-     console.log("Pname "+ pnum);  
+    // console.log(typeof pnum);
+    //  console.log("Pname "+ pnum);
+    //  const pnum1 = pnum.toLowerCase()+" "; 
+    //  console.log(pnum1);
+    //  console.log(typeof pnum1);
 
-    const products = await Product.find({ p_no: pnum });
-     //const products = await Product.findOne({ p_name : pname });
+    //  console.log(typeOf pnum1);
+     const pnum1 = pnum.trim().toLowerCase();
+    console.log(pnum1);
+    const products = await Product.find({ p_no: pnum1 });
      console.log(products);
+    //  console.log(typeof products);
      res.json({products});
 
 });

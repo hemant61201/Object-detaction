@@ -33,6 +33,7 @@ function Result() {
 
         const data = await res.json();
         console.log(data.products);
+        setInputupload(data.products);
         // const value = setInput.products[0];
         setInputupload({
             p_name: data.products[0].p_name,
@@ -42,6 +43,14 @@ function Result() {
             p_image: data.products[0].p_image,
             p_no: data.products[0].p_no
         });
+        // setInputupload({
+        //     p_name: data.products.p_name,
+        //     p_origin: data.products.p_origin,
+        //     p_price: data.products.p_price,
+        //     p_mfgyear: data.products.p_mfgyear,
+        //     p_image: data.products.p_image,
+        //     p_no: data.products.p_no
+        // });
 
     };
 
