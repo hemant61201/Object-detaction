@@ -33,7 +33,7 @@ const handleSearch = async(e) =>{
                 <NavLink to={{ pathname: "http://localhost:8501" }} className="nav-link active" target="Upload">Upload</NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="/userhome">Logout</a>
+                <a className="nav-link active" href="/">Logout</a>
               </li>
 
             </ul>
